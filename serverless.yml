@@ -1,0 +1,53 @@
+org: jsoareez
+service: jwt
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  architecture: arm64
+  memorySize: 128
+  environment:
+    DYNAMO_ACCOUNTS_TABLE: !Ref AccountsTable
+  iam:
+    role:
+      statements:
+        # DynamoDB
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:DeleteItem
+            - dynamodb:GetItem
+            - dynamodb:UpdateItem
+            - dynamodb:Scan
+          Resource: !GetAtt AccountsTable.Arn
+
+package:
+  individually: true
+
+build:
+  esbuild:
+    bundle: true
+    minify: true
+    sourcemap: false
+    exclude:
+      - '@aws-sdk/*'
+
+custom:
+  serverless-offline:
+    httpPort: 4000
+    localEnvironment: true
+
+functions:
+  hello:
+    handler: src/handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: GET
+resources:
+  # DynamoDB
+  - ${file(./resources/dynamodb/AccountsTable.yml)}
