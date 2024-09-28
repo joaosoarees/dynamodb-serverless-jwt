@@ -10,6 +10,7 @@ provider:
   region: us-east-1
   architecture: arm64
   memorySize: 128
+  timeout: 30
   environment:
     DYNAMO_ACCOUNTS_TABLE: !Ref AccountsTable
   iam:
@@ -43,11 +44,12 @@ custom:
 
 functions:
   hello:
-    handler: src/handler.hello
+    handler: src/app/modules/Account/handler.signInHandler
     events:
       - httpApi:
-          path: /
-          method: GET
+          path: /teste/{orderId}
+          method: POST
+
 resources:
   # DynamoDB
   - ${file(./resources/dynamodb/AccountsTable.yml)}
