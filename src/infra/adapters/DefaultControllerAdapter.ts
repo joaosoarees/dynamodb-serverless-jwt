@@ -1,4 +1,5 @@
 import { AccountAlreadyExists } from '@/shared/errors/AccountAlreadyExists';
+import { InvalidCredentials } from '@/shared/errors/InvalidCredentials';
 import { IDefaultControllerAdapterParams } from '@/shared/interfaces/DefaultControllerParams';
 import { response } from '@/shared/utils/reponse';
 import type {
@@ -31,6 +32,10 @@ export class DefaultControllerAdapter {
 
         if (error instanceof AccountAlreadyExists) {
           return response(409, { ...error });
+        }
+
+        if (error instanceof InvalidCredentials) {
+          return response(401, { ...error });
         }
 
         return response(500, { message: 'Internal Server Error' });
