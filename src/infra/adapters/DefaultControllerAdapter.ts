@@ -1,11 +1,10 @@
+import { AccountAlreadyExists } from '@/shared/errors/AccountAlreadyExists';
+import { IDefaultControllerAdapterParams } from '@/shared/interfaces/DefaultControllerParams';
+import { response } from '@/shared/utils/reponse';
 import type {
   APIGatewayProxyEventV2,
   APIGatewayProxyResultV2,
 } from 'aws-lambda';
-
-import { AccountAlreadyExists } from '@/shared/errors/AccountAlreadyExists';
-import { IDefaultControllerAdapterParams } from '@/shared/interfaces/DefaultControllerParams';
-import { response } from '@/shared/utils/reponse';
 
 export class DefaultControllerAdapter {
   adapt(
@@ -22,7 +21,7 @@ export class DefaultControllerAdapter {
           pathParameters: request?.pathParameters || undefined,
           body: request.body && JSON.parse(request.body),
           query:
-            request?.queryStringParameters &&
+            request.queryStringParameters &&
             JSON.parse(JSON.stringify(request.queryStringParameters)),
         });
 

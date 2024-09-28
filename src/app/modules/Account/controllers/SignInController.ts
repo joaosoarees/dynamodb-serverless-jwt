@@ -1,8 +1,8 @@
 import { IDefaultControllerAdapterParams } from '@/shared/interfaces/DefaultControllerParams';
-import { IApiGatewayProtocol } from '@/shared/protocols/ApiGatewayProtocol';
+import { IDefaultControllerProtocol } from '@/shared/protocols/DefaultControllerProtocol';
 import { makeSignInUseCase } from '../factories/makeSignInUseCase';
 
-export class SignInController implements IApiGatewayProtocol {
+export class SignInController implements IDefaultControllerProtocol {
   handle(
     params: IDefaultControllerAdapterParams,
   ): Promise<{ email: string; password: string }> {
