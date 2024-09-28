@@ -2,6 +2,7 @@ import { dynamoClient } from '@/clients/dynamoClient';
 import { env } from '@/config/env';
 import { AccountAlreadyExists } from '@/shared/errors/AccountAlreadyExists';
 import { PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
+import { hash } from 'bcryptjs';
 import { randomUUID } from 'node:crypto';
 
 interface ISignUpUseCaseParams {
@@ -36,6 +37,8 @@ export class SignUpUseCase {
 
     if (Items?.length) throw new AccountAlreadyExists();
 
+    const hashedPassword = await hash(password, 10);
+
     const accountId = randomUUID();
 
     const createAccountCommand = new PutCommand({
@@ -44,7 +47,7 @@ export class SignUpUseCase {
         id: accountId,
         name,
         email,
-        password,
+        password: hashedPassword,
         PK: `ACCOUNT#<${accountId}>`,
         SK: `ACCOUNT#<${accountId}>`,
         GSI1PK: 'ACCOUNTS',
