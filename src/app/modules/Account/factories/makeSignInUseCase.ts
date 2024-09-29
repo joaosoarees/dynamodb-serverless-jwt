@@ -1,5 +1,7 @@
+import { AccountsRepository } from '../repositories/AccountsRepository';
 import { SignInUseCase } from '../useCases/SignInUseCase';
 
 export function makeSignInUseCase() {
-  return new SignInUseCase();
+  const accountsRepository = new AccountsRepository();
+  return new SignInUseCase(accountsRepository);
 }

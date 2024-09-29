@@ -1,10 +1,8 @@
-import { dynamoClient } from '@/clients/dynamoClient';
 import { env } from '@/config/env';
 import { InvalidCredentials } from '@/shared/errors/InvalidCredentials';
-import { QueryCommand } from '@aws-sdk/lib-dynamodb';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import { Account } from '../@types/Account';
+import { AccountsRepository } from '../repositories/AccountsRepository';
 
 interface ISignInUseCaseParams {
   email: string;
@@ -16,26 +14,15 @@ interface ISignInUseCaseOutput {
 }
 
 export class SignInUseCase {
+  constructor(private readonly accountsRepository: AccountsRepository) {}
+
   async execute({
     email,
     password,
   }: ISignInUseCaseParams): Promise<ISignInUseCaseOutput> {
-    const findAccountByEmailCommand = new QueryCommand({
-      TableName: env.DYNAMO_ACCOUNTS_TABLE,
-      IndexName: 'GSI1',
-      KeyConditionExpression: 'GSI1PK = :partitionKey AND GSI1SK = :sortKey',
-      ExpressionAttributeValues: {
-        ':partitionKey': 'ACCOUNTS',
-        ':sortKey': `ACCOUNTS#<${email}>`,
-      },
-      Limit: 1,
-    });
+    const account = await this.accountsRepository.findByEmail(email);
 
-    const { Items } = await dynamoClient.send(findAccountByEmailCommand);
-
-    if (!Items?.length) throw new InvalidCredentials();
-
-    const account = Items[0] as Account;
+    if (!account) throw new InvalidCredentials();
 
     const isPasswordValid = await compare(password, account.password);
 
