@@ -1,5 +1,6 @@
 import { SignUpUseCase } from '../useCases/SignUpUseCase';
 
 export function makeSignUpUseCase() {
-  return new SignUpUseCase();
+  const SALT = 10;
+  return new SignUpUseCase(SALT);
 }

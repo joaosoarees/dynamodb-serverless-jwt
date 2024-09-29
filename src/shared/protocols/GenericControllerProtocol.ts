@@ -1,5 +1,6 @@
 import { IDefaultControllerAdapterParams } from '../interfaces/DefaultControllerParams';
+import { IDefaultControllerAdapterResponse } from './DefaultControllerProtocol';
 
 export type GenericAdapterController = (
   params: IDefaultControllerAdapterParams,
-) => Promise<Record<string, any>>;
+) => Promise<IDefaultControllerAdapterResponse>;

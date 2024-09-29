@@ -1,23 +1,25 @@
 import { AccountAlreadyExists } from '@/shared/errors/AccountAlreadyExists';
 import { InvalidCredentials } from '@/shared/errors/InvalidCredentials';
 import { IDefaultControllerAdapterParams } from '@/shared/interfaces/DefaultControllerParams';
+import { IDefaultControllerAdapterResponse } from '@/shared/protocols/DefaultControllerProtocol';
 import { response } from '@/shared/utils/reponse';
 import type {
   APIGatewayProxyEventV2,
   APIGatewayProxyResultV2,
 } from 'aws-lambda';
+import { ZodError } from 'zod';
 
 export class DefaultControllerAdapter {
   adapt(
     controller: (
       params: IDefaultControllerAdapterParams,
-    ) => Promise<Record<string, any>>,
+    ) => Promise<IDefaultControllerAdapterResponse>,
   ) {
     const handler = async (
       request: APIGatewayProxyEventV2,
     ): Promise<APIGatewayProxyResultV2> => {
       try {
-        const result = await controller({
+        const { statusCode, data } = await controller({
           ...request,
           pathParameters: request?.pathParameters || undefined,
           body: request.body && JSON.parse(request.body),
@@ -26,7 +28,7 @@ export class DefaultControllerAdapter {
             JSON.parse(JSON.stringify(request.queryStringParameters)),
         });
 
-        return response(200, result);
+        return response(statusCode, data);
       } catch (error) {
         console.error(error);
 
@@ -36,6 +38,13 @@ export class DefaultControllerAdapter {
 
         if (error instanceof InvalidCredentials) {
           return response(401, { ...error });
+        }
+
+        if (error instanceof ZodError) {
+          return response(400, {
+            name: 'ValidationError',
+            issues: error.issues,
+          });
         }
 
         return response(500, { message: 'Internal Server Error' });

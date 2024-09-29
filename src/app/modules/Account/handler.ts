@@ -1,11 +1,11 @@
-import { makeDefaultControllerAdapter } from '../../../infra/factories/makeDefaultControllerAdapter';
-import { SignInController } from './controllers/SignInController';
-import { SignUpController } from './controllers/SignUpController';
+import { makeDefaultControllerAdapter } from '@/infra/factories/makeDefaultControllerAdapter';
+import { makeSignInController } from './factories/makeSignInController';
+import { makeSignUpController } from './factories/makeSignUpController';
 
 export const signInHandler = makeDefaultControllerAdapter(
-  new SignInController().handle,
+  makeSignInController().handle,
 );
 
 export const signUpHandler = makeDefaultControllerAdapter(
-  new SignUpController().handle,
+  makeSignUpController().handle,
 );

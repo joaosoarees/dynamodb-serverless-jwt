@@ -11,17 +11,14 @@ interface ISignUpUseCaseParams {
   password: string;
 }
 
-interface ISignUpUseCaseOutput {
-  id: string;
-  email: string;
-}
-
 export class SignUpUseCase {
+  constructor(private readonly salt: number) {}
+
   async execute({
     name,
     email,
     password,
-  }: ISignUpUseCaseParams): Promise<ISignUpUseCaseOutput> {
+  }: ISignUpUseCaseParams): Promise<void> {
     const findAccountByEmailCommand = new QueryCommand({
       TableName: env.DYNAMO_ACCOUNTS_TABLE,
       IndexName: 'GSI1',
@@ -37,7 +34,7 @@ export class SignUpUseCase {
 
     if (Items?.length) throw new AccountAlreadyExists();
 
-    const hashedPassword = await hash(password, 10);
+    const hashedPassword = await hash(password, this.salt);
 
     const accountId = randomUUID();
 
@@ -56,10 +53,5 @@ export class SignUpUseCase {
     });
 
     await dynamoClient.send(createAccountCommand);
-
-    return {
-      id: randomUUID(),
-      email,
-    };
   }
 }

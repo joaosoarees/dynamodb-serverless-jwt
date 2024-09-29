@@ -1,14 +1,35 @@
 import { IDefaultControllerAdapterParams } from '@/shared/interfaces/DefaultControllerParams';
-import { IDefaultControllerProtocol } from '@/shared/protocols/DefaultControllerProtocol';
-import { makeSignInUseCase } from '../factories/makeSignInUseCase';
+import {
+  IDefaultControllerAdapterResponse,
+  IDefaultControllerProtocol,
+} from '@/shared/protocols/DefaultControllerProtocol';
+import { z } from 'zod';
+import { SignInUseCase } from '../useCases/SignInUseCase';
+
+const schema = z.object({
+  email: z
+    .string()
+    .email('E-mail informado é inválido')
+    .min(1, 'E-mail é obrigatório'),
+  password: z.string().min(8, 'Senha deve ter no mínimo 8 dígitos'),
+});
 
 export class SignInController implements IDefaultControllerProtocol {
-  handle(params: IDefaultControllerAdapterParams) {
-    const signInUseCase = makeSignInUseCase();
+  constructor(private readonly signInUseCase: SignInUseCase) {}
 
-    const { email, password }: { email: string; password: string } =
-      params.body;
+  handle = async (
+    params: IDefaultControllerAdapterParams,
+  ): Promise<IDefaultControllerAdapterResponse> => {
+    const { email, password } = await schema.parseAsync(params.body);
 
-    return signInUseCase.execute({ email, password });
-  }
+    const { accessToken } = await this.signInUseCase.execute({
+      email,
+      password,
+    });
+
+    return {
+      statusCode: 201,
+      data: { accessToken },
+    };
+  };
 }
