@@ -2,7 +2,8 @@
   "name": "jwt",
   "version": "1.0.0",
   "scripts": {
-    "dev": "serverless offline --reloadHandler --noSponsor"
+    "dev": "serverless offline --reloadHandler --noSponsor",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
