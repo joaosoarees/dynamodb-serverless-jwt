@@ -2,12 +2,13 @@ import { dynamoClient } from '@/clients/dynamoClient';
 import { env } from '@/config/env';
 import { PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
 import { randomUUID } from 'crypto';
-import { Account } from '../@types/Account';
+import { Account, ERole } from '../@types/Account';
 
 interface ICreateAccountParams {
   email: string;
   name: string;
   password: string;
+  role: ERole;
 }
 
 export class AccountsRepository {
@@ -28,7 +29,12 @@ export class AccountsRepository {
     return Items[0] as Account;
   }
 
-  async create({ name, email, password }: ICreateAccountParams): Promise<void> {
+  async create({
+    name,
+    email,
+    password,
+    role,
+  }: ICreateAccountParams): Promise<void> {
     const accountId = randomUUID();
 
     const command = new PutCommand({
@@ -38,6 +44,7 @@ export class AccountsRepository {
         name,
         email,
         password,
+        role,
         PK: `ACCOUNT#<${accountId}>`,
         SK: `ACCOUNT#<${accountId}>`,
         GSI1PK: 'ACCOUNTS',

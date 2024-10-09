@@ -1,5 +1,6 @@
 import { AccountAlreadyExistsError } from '@/shared/errors/AccountAlreadyExistsError';
 import { hash } from 'bcryptjs';
+import { ERole } from '../@types/Account';
 import { AccountsRepository } from '../repositories/AccountsRepository';
 
 interface ISignUpUseCaseParams {
@@ -30,6 +31,7 @@ export class SignUpUseCase {
       name,
       email,
       password: hashedPassword,
+      role: ERole.USER,
     });
   }
 }

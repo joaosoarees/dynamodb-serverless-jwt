@@ -1,3 +1,8 @@
+export enum ERole {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+}
+
 export type Account = {
   PK: string;
   SK: string;
@@ -7,4 +12,5 @@ export type Account = {
   name: string;
   email: string;
   password: string;
+  role: ERole;
 };
