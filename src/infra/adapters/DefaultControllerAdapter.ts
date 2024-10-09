@@ -8,6 +8,7 @@ import type {
   APIGatewayProxyEventV2,
   APIGatewayProxyResultV2,
 } from 'aws-lambda';
+import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import { ZodError } from 'zod';
 
 export class DefaultControllerAdapter {
@@ -21,13 +22,12 @@ export class DefaultControllerAdapter {
     ): Promise<APIGatewayProxyResultV2> => {
       try {
         const { statusCode, data } = await controller({
-          ...request,
           pathParameters: request?.pathParameters || undefined,
           body: request.body && JSON.parse(request.body),
           query:
             request.queryStringParameters &&
             JSON.parse(JSON.stringify(request.queryStringParameters)),
-          authorization: request.headers?.authorization,
+          headers: request.headers,
         });
 
         return response(statusCode, data);
@@ -43,7 +43,15 @@ export class DefaultControllerAdapter {
         }
 
         if (error instanceof UnauthorizedError) {
-          return response(401, { ...error });
+          return response(401, { ...error, message: error.message });
+        }
+
+        if (error instanceof TokenExpiredError) {
+          return response(401, { name: 'UnauthorizedError' });
+        }
+
+        if (error instanceof JsonWebTokenError) {
+          return response(401, { name: 'UnauthorizedError' });
         }
 
         if (error instanceof ZodError) {

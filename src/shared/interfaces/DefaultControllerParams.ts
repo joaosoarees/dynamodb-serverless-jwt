@@ -1,9 +1,8 @@
 import type { APIGatewayProxyEventV2 } from 'aws-lambda';
 
-export interface IDefaultControllerAdapterParams
-  extends APIGatewayProxyEventV2 {
+export interface IDefaultControllerAdapterParams {
   body: any;
   query: Record<string, any>;
   pathParameters: APIGatewayProxyEventV2['pathParameters'];
-  authorization?: string;
+  headers: APIGatewayProxyEventV2['headers'];
 }

@@ -1,4 +1,4 @@
-import { IDefaultControllerAdapterParams } from '@/shared/interfaces/DefaultControllerParams';
+import { IAuthorizationControllerAdapterParams } from '@/shared/interfaces/AuthorizationControllerParams';
 import {
   IDefaultControllerAdapterResponse,
   IDefaultControllerProtocol,
@@ -6,8 +6,12 @@ import {
 
 export class ListLeadsController implements IDefaultControllerProtocol {
   async handle(
-    params: IDefaultControllerAdapterParams,
+    params: IAuthorizationControllerAdapterParams,
   ): Promise<IDefaultControllerAdapterResponse> {
+    const { accountId } = params;
+
+    console.log({ accountId });
+
     return {
       statusCode: 200,
       data: {

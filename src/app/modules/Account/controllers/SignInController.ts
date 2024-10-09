@@ -28,7 +28,7 @@ export class SignInController implements IDefaultControllerProtocol {
     });
 
     return {
-      statusCode: 201,
+      statusCode: 200,
       data: { accessToken },
     };
   };
