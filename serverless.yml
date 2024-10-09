@@ -62,6 +62,13 @@ functions:
           path: /account/sign-up
           method: POST
 
+  ListLeads:
+    handler: src/app/modules/Leads/handler.listLeadsHandler
+    events:
+      - httpApi:
+          path: /leads
+          method: GET
+
 resources:
   # DynamoDB
   - ${file(./resources/dynamodb/AccountsTable.yml)}

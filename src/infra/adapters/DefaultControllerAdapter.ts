@@ -1,5 +1,6 @@
-import { AccountAlreadyExists } from '@/shared/errors/AccountAlreadyExists';
-import { InvalidCredentials } from '@/shared/errors/InvalidCredentials';
+import { AccountAlreadyExistsError } from '@/shared/errors/AccountAlreadyExistsError';
+import { InvalidCredentialsError } from '@/shared/errors/InvalidCredentialsError';
+import { UnauthorizedError } from '@/shared/errors/UnauthorizedError';
 import { IDefaultControllerAdapterParams } from '@/shared/interfaces/DefaultControllerParams';
 import { IDefaultControllerAdapterResponse } from '@/shared/protocols/DefaultControllerProtocol';
 import { response } from '@/shared/utils/reponse';
@@ -26,17 +27,22 @@ export class DefaultControllerAdapter {
           query:
             request.queryStringParameters &&
             JSON.parse(JSON.stringify(request.queryStringParameters)),
+          authorization: request.headers?.authorization,
         });
 
         return response(statusCode, data);
       } catch (error) {
         console.error(error);
 
-        if (error instanceof AccountAlreadyExists) {
+        if (error instanceof AccountAlreadyExistsError) {
           return response(409, { ...error });
         }
 
-        if (error instanceof InvalidCredentials) {
+        if (error instanceof InvalidCredentialsError) {
+          return response(401, { ...error });
+        }
+
+        if (error instanceof UnauthorizedError) {
           return response(401, { ...error });
         }
 

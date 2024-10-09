@@ -25,10 +25,10 @@ export class AccountsRepository {
 
     const { Items = [] } = await dynamoClient.send(command);
 
-    return Items?.[0] as Account;
+    return Items[0] as Account;
   }
 
-  async create({ name, email, password }: ICreateAccountParams) {
+  async create({ name, email, password }: ICreateAccountParams): Promise<void> {
     const accountId = randomUUID();
 
     const command = new PutCommand({

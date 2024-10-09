@@ -1,5 +1,5 @@
 import { env } from '@/config/env';
-import { InvalidCredentials } from '@/shared/errors/InvalidCredentials';
+import { InvalidCredentials } from '@/shared/errors/InvalidCredentialsError';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { AccountsRepository } from '../repositories/AccountsRepository';

@@ -1,4 +1,4 @@
-import { AccountAlreadyExists } from '@/shared/errors/AccountAlreadyExists';
+import { AccountAlreadyExists } from '@/shared/errors/AccountAlreadyExistsError';
 import { hash } from 'bcryptjs';
 import { AccountsRepository } from '../repositories/AccountsRepository';
 

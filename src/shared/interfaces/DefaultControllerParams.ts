@@ -5,4 +5,5 @@ export interface IDefaultControllerAdapterParams
   body: any;
   query: Record<string, any>;
   pathParameters: APIGatewayProxyEventV2['pathParameters'];
+  authorization?: string;
 }

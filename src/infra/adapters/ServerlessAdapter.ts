@@ -13,7 +13,7 @@ export type ServerlessAdapterController = (
 
 export class ServerlessAdapter {
   static adapt(controller: ServerlessAdapterController) {
-    return async (
+    return (
       event: APIGatewayProxyEventV2,
     ): Promise<APIGatewayProxyResultV2> => {
       return controller({
