@@ -1,4 +1,4 @@
-import { AccountAlreadyExists } from '@/shared/errors/AccountAlreadyExistsError';
+import { AccountAlreadyExistsError } from '@/shared/errors/AccountAlreadyExistsError';
 import { hash } from 'bcryptjs';
 import { AccountsRepository } from '../repositories/AccountsRepository';
 
@@ -22,7 +22,7 @@ export class SignUpUseCase {
     const accountAlreadyExists =
       await this.accountsRepository.findByEmail(email);
 
-    if (accountAlreadyExists) throw new AccountAlreadyExists();
+    if (accountAlreadyExists) throw new AccountAlreadyExistsError();
 
     const hashedPassword = await hash(password, this.salt);
 
