@@ -1,15 +1,16 @@
+import type {
+  APIGatewayProxyEventV2,
+  APIGatewayProxyResultV2,
+} from 'aws-lambda';
+import { ZodError } from 'zod';
+
+import { AccessDeniedError } from '@/shared/errors/AccessDeniedError';
 import { AccountAlreadyExistsError } from '@/shared/errors/AccountAlreadyExistsError';
 import { InvalidCredentialsError } from '@/shared/errors/InvalidCredentialsError';
 import { UnauthorizedError } from '@/shared/errors/UnauthorizedError';
 import { IDefaultControllerAdapterParams } from '@/shared/interfaces/DefaultControllerParams';
 import { IDefaultControllerAdapterResponse } from '@/shared/protocols/DefaultControllerProtocol';
 import { response } from '@/shared/utils/reponse';
-import type {
-  APIGatewayProxyEventV2,
-  APIGatewayProxyResultV2,
-} from 'aws-lambda';
-import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
-import { ZodError } from 'zod';
 
 export class DefaultControllerAdapter {
   adapt(
@@ -43,15 +44,11 @@ export class DefaultControllerAdapter {
         }
 
         if (error instanceof UnauthorizedError) {
-          return response(401, { ...error, message: error.message });
+          return response(401, { ...error });
         }
 
-        if (error instanceof TokenExpiredError) {
-          return response(401, { name: 'UnauthorizedError' });
-        }
-
-        if (error instanceof JsonWebTokenError) {
-          return response(401, { name: 'UnauthorizedError' });
+        if (error instanceof AccessDeniedError) {
+          return response(403, { ...error });
         }
 
         if (error instanceof ZodError) {

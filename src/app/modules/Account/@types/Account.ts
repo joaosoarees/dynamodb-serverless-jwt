@@ -1,7 +1,4 @@
-export enum ERole {
-  ADMIN = 'ADMIN',
-  USER = 'USER',
-}
+import { ERole } from '@/shared/enums/ERole';
 
 export type Account = {
   PK: string;

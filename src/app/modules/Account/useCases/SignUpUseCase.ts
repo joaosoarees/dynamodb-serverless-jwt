@@ -1,6 +1,8 @@
-import { AccountAlreadyExistsError } from '@/shared/errors/AccountAlreadyExistsError';
 import { hash } from 'bcryptjs';
-import { ERole } from '../@types/Account';
+
+import { ERole } from '@/shared/enums/ERole';
+import { AccountAlreadyExistsError } from '@/shared/errors/AccountAlreadyExistsError';
+
 import { AccountsRepository } from '../repositories/AccountsRepository';
 
 interface ISignUpUseCaseParams {

@@ -1,14 +1,16 @@
+import { JwtPayload, verify } from 'jsonwebtoken';
+
 import { env } from '@/config/env';
+import { ERole } from '@/shared/enums/ERole';
 import { UnauthorizedError } from '@/shared/errors/UnauthorizedError';
-import { IAuthorizationControllerAdapterParams } from '@/shared/interfaces/AuthorizationControllerParams';
+import { IAuthenticationControllerAdapterParams } from '@/shared/interfaces/AuthenticationControllerAdapterParams';
 import { IDefaultControllerAdapterParams } from '@/shared/interfaces/DefaultControllerParams';
 import { IDefaultControllerAdapterResponse } from '@/shared/protocols/DefaultControllerProtocol';
-import { verify } from 'jsonwebtoken';
 
-export class AuthorizationAdapter {
+export class AuthenticationControllerAdapter {
   adapt(
     controller: (
-      params: IAuthorizationControllerAdapterParams,
+      params: IAuthenticationControllerAdapterParams,
     ) => Promise<IDefaultControllerAdapterResponse>,
   ) {
     const handler = async (
@@ -16,25 +18,24 @@ export class AuthorizationAdapter {
     ): Promise<IDefaultControllerAdapterResponse> => {
       const { authorization } = request.headers;
 
-      if (!authorization) throw new UnauthorizedError('Missing access token.');
+      if (!authorization) throw new UnauthorizedError();
 
       const [, accessToken] = authorization.split(' ');
 
       try {
-        const payload = verify(accessToken, env.JWT_SECRET);
+        const payload = verify(accessToken, env.JWT_SECRET) as JwtPayload;
 
         return controller({
           ...request,
-          accountId: payload.sub as string,
-        });
-      } catch (error) {
-        console.error(error);
-        return {
-          statusCode: 401,
-          data: {
-            message: 'Invalid access token.',
+          metadata: {
+            account: {
+              id: payload.sub as string,
+              role: payload.role as ERole,
+            },
           },
-        };
+        });
+      } catch {
+        throw new UnauthorizedError();
       }
     };
 

@@ -1,11 +1,18 @@
-import { AuthorizationAdapterController } from '@/shared/protocols/AuthorizationControllerProtocol';
-import { AuthorizationAdapter } from '../adapters/AuthorizationAdapter';
-import { makeDefaultControllerAdapter } from './makeDefaultControllerAdapter';
+import { ERole } from '@/shared/enums/ERole';
+import { AuthorizationControllerAdapterProtocol } from '@/shared/protocols/AuthorizationControllerAdapterProtocol';
+import { AuthorizationControllerAdapter } from '../adapters/AuthorizationControllerAdapter';
+import { makeAuthenticationAdapter } from './makeAuthenticationAdapter';
 
-export function makeAuthorizationAdapter(
-  controller: AuthorizationAdapterController,
-) {
-  return makeDefaultControllerAdapter(
-    new AuthorizationAdapter().adapt(controller),
+interface IMakeAuthorizationAdapterParams {
+  controller: AuthorizationControllerAdapterProtocol;
+  allowedRoles: ERole[];
+}
+
+export function makeAuthorizationAdapter({
+  controller,
+  allowedRoles,
+}: IMakeAuthorizationAdapterParams) {
+  return makeAuthenticationAdapter(
+    new AuthorizationControllerAdapter(allowedRoles).adapt(controller),
   );
 }

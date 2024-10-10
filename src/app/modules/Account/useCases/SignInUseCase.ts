@@ -28,9 +28,13 @@ export class SignInUseCase {
 
     if (!isPasswordValid) throw new InvalidCredentialsError();
 
-    const accessToken = sign({ sub: account.id }, env.JWT_SECRET, {
-      expiresIn: '1d',
-    });
+    const accessToken = sign(
+      { sub: account.id, role: account.role },
+      env.JWT_SECRET,
+      {
+        expiresIn: '1d',
+      },
+    );
 
     return { accessToken };
   }

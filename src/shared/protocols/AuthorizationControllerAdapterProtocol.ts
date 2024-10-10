@@ -1,6 +1,6 @@
-import { IAuthorizationControllerAdapterParams } from '../interfaces/AuthorizationControllerParams';
+import { IAuthorizationControllerAdapterParams } from '../interfaces/AuthorizationControllerAdapterParams';
 import { IDefaultControllerAdapterResponse } from './DefaultControllerProtocol';
 
-export type AuthorizationAdapterController = (
+export type AuthorizationControllerAdapterProtocol = (
   params: IAuthorizationControllerAdapterParams,
 ) => Promise<IDefaultControllerAdapterResponse>;

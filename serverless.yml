@@ -68,6 +68,12 @@ functions:
       - httpApi:
           path: /leads
           method: GET
+  PrivateLeads:
+    handler: src/app/modules/Leads/handler.privateLeadsHandler
+    events:
+      - httpApi:
+          path: /leads
+          method: POST
 
 resources:
   # DynamoDB
