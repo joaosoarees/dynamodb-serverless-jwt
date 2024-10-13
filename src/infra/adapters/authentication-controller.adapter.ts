@@ -1,11 +1,11 @@
 import { JwtPayload, verify } from 'jsonwebtoken';
 
 import { env } from '@/config/env';
-import { ERole } from '@/shared/enums/ERole';
-import { UnauthorizedError } from '@/shared/errors/UnauthorizedError';
-import { IAuthenticationControllerAdapterParams } from '@/shared/interfaces/AuthenticationControllerAdapterParams';
-import { IDefaultControllerAdapterParams } from '@/shared/interfaces/DefaultControllerParams';
-import { IDefaultControllerAdapterResponse } from '@/shared/protocols/DefaultControllerProtocol';
+import { ERole } from '@/shared/enums/role.enum';
+import { UnauthorizedError } from '@/shared/errors/unauthorized.error';
+import { IAuthenticationControllerAdapterParams } from '@/shared/interfaces/authentication-controller-adapter-params.interface';
+import { IDefaultControllerAdapterParams } from '@/shared/interfaces/default-controller-adapter-params.interface';
+import { IDefaultControllerAdapterResponse } from '@/shared/protocols/default-controller.protocol';
 
 export class AuthenticationControllerAdapter {
   adapt(

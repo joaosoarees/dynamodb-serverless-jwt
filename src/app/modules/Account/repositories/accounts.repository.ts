@@ -1,9 +1,9 @@
 import { dynamoClient } from '@/clients/dynamoClient';
 import { env } from '@/config/env';
-import { ERole } from '@/shared/enums/ERole';
+import { ERole } from '@/shared/enums/role.enum';
 import { PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
 import { randomUUID } from 'crypto';
-import { Account } from '../@types/Account';
+import { Account } from '../@types/account.type';
 
 interface ICreateAccountParams {
   email: string;

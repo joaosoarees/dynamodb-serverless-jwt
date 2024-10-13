@@ -1,4 +1,4 @@
-import { ERole } from '@/shared/enums/ERole';
+import { ERole } from '@/shared/enums/role.enum';
 
 export type Account = {
   PK: string;

@@ -1,8 +1,8 @@
-import { ERole } from '@/shared/enums/ERole';
-import { AccessDeniedError } from '@/shared/errors/AccessDeniedError';
-import { IAuthenticationControllerAdapterParams } from '@/shared/interfaces/AuthenticationControllerAdapterParams';
-import { IAuthorizationControllerAdapterParams } from '@/shared/interfaces/AuthorizationControllerAdapterParams';
-import { IDefaultControllerAdapterResponse } from '@/shared/protocols/DefaultControllerProtocol';
+import { ERole } from '@/shared/enums/role.enum';
+import { AccessDeniedError } from '@/shared/errors/access-denied.error';
+import { IAuthenticationControllerAdapterParams } from '@/shared/interfaces/authentication-controller-adapter-params.interface';
+import { IAuthorizationControllerAdapterParams } from '@/shared/interfaces/authorization-controller-adapter-params.interface';
+import { IDefaultControllerAdapterResponse } from '@/shared/protocols/default-controller.protocol';
 
 export class AuthorizationControllerAdapter {
   constructor(private readonly allowedRoles: ERole[]) {}

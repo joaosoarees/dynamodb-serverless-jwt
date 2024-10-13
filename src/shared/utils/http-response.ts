@@ -1,6 +1,6 @@
 import type { APIGatewayProxyResultV2 } from 'aws-lambda';
 
-export function response(
+export function httpResponse(
   statusCode: number,
   body?: Record<string, any>,
 ): APIGatewayProxyResultV2 {

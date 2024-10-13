@@ -1,8 +1,8 @@
-import { IAuthenticationControllerAdapterParams } from '@/shared/interfaces/AuthenticationControllerAdapterParams';
+import { IAuthenticationControllerAdapterParams } from '@/shared/interfaces/authentication-controller-adapter-params.interface';
 import {
   IDefaultControllerAdapterResponse,
   IDefaultControllerProtocol,
-} from '@/shared/protocols/DefaultControllerProtocol';
+} from '@/shared/protocols/default-controller.protocol';
 
 export class ListLeadsController implements IDefaultControllerProtocol {
   async handle(

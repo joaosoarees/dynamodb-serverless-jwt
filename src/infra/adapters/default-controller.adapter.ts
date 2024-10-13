@@ -4,13 +4,13 @@ import type {
 } from 'aws-lambda';
 import { ZodError } from 'zod';
 
-import { AccessDeniedError } from '@/shared/errors/AccessDeniedError';
-import { AccountAlreadyExistsError } from '@/shared/errors/AccountAlreadyExistsError';
-import { InvalidCredentialsError } from '@/shared/errors/InvalidCredentialsError';
-import { UnauthorizedError } from '@/shared/errors/UnauthorizedError';
-import { IDefaultControllerAdapterParams } from '@/shared/interfaces/DefaultControllerParams';
-import { IDefaultControllerAdapterResponse } from '@/shared/protocols/DefaultControllerProtocol';
-import { response } from '@/shared/utils/reponse';
+import { AccessDeniedError } from '@/shared/errors/access-denied.error';
+import { AccountAlreadyExistsError } from '@/shared/errors/account-already-exists.error';
+import { InvalidCredentialsError } from '@/shared/errors/invalid-credential.error';
+import { UnauthorizedError } from '@/shared/errors/unauthorized.error';
+import { IDefaultControllerAdapterParams } from '@/shared/interfaces/default-controller-adapter-params.interface';
+import { IDefaultControllerAdapterResponse } from '@/shared/protocols/default-controller.protocol';
+import { httpResponse } from '@/shared/utils/http-response';
 
 export class DefaultControllerAdapter {
   adapt(
@@ -31,34 +31,34 @@ export class DefaultControllerAdapter {
           headers: request.headers,
         });
 
-        return response(statusCode, data);
+        return httpResponse(statusCode, data);
       } catch (error) {
         console.error(error);
 
         if (error instanceof AccountAlreadyExistsError) {
-          return response(409, { ...error });
+          return httpResponse(409, { ...error });
         }
 
         if (error instanceof InvalidCredentialsError) {
-          return response(401, { ...error });
+          return httpResponse(401, { ...error });
         }
 
         if (error instanceof UnauthorizedError) {
-          return response(401, { ...error });
+          return httpResponse(401, { ...error });
         }
 
         if (error instanceof AccessDeniedError) {
-          return response(403, { ...error });
+          return httpResponse(403, { ...error });
         }
 
         if (error instanceof ZodError) {
-          return response(400, {
+          return httpResponse(400, {
             name: 'ValidationError',
             issues: error.issues,
           });
         }
 
-        return response(500, { message: 'Internal Server Error' });
+        return httpResponse(500, { message: 'Internal Server Error' });
       }
     };
 

@@ -1,10 +1,10 @@
-import { IDefaultControllerAdapterParams } from '@/shared/interfaces/DefaultControllerParams';
+import { IDefaultControllerAdapterParams } from '@/shared/interfaces/default-controller-adapter-params.interface';
 import {
   IDefaultControllerAdapterResponse,
   IDefaultControllerProtocol,
-} from '@/shared/protocols/DefaultControllerProtocol';
+} from '@/shared/protocols/default-controller.protocol';
 import { z } from 'zod';
-import { SignInUseCase } from '../useCases/SignInUseCase';
+import { SignInUseCase } from '../useCases/sign-in.usecase';
 
 const schema = z.object({
   email: z

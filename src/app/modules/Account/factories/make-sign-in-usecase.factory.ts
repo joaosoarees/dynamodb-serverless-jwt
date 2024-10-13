@@ -1,5 +1,5 @@
-import { SignInUseCase } from '../useCases/SignInUseCase';
-import { makeAccountsRepository } from './makeAccountsRepository';
+import { SignInUseCase } from '../useCases/sign-in.usecase';
+import { makeAccountsRepository } from './make-accounts-repository.factory';
 
 export function makeSignInUseCase() {
   const accountsRepository = makeAccountsRepository();

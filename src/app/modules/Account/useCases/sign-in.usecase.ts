@@ -1,8 +1,8 @@
 import { env } from '@/config/env';
-import { InvalidCredentialsError } from '@/shared/errors/InvalidCredentialsError';
+import { InvalidCredentialsError } from '@/shared/errors/invalid-credential.error';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import { AccountsRepository } from '../repositories/AccountsRepository';
+import { AccountsRepository } from '../repositories/accounts.repository';
 
 interface ISignInUseCaseParams {
   email: string;

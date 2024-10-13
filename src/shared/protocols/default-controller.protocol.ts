@@ -1,4 +1,4 @@
-import { IDefaultControllerAdapterParams } from '../interfaces/DefaultControllerParams';
+import { IDefaultControllerAdapterParams } from '../interfaces/default-controller-adapter-params.interface';
 
 export interface IDefaultControllerAdapterResponse {
   statusCode: number;
