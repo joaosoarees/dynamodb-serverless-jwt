@@ -1,9 +1,11 @@
+import { z } from 'zod';
+
 import { IDefaultControllerAdapterParams } from '@/shared/interfaces/default-controller-adapter-params.interface';
 import {
   IDefaultControllerAdapterResponse,
   IDefaultControllerProtocol,
 } from '@/shared/protocols/default-controller.protocol';
-import { z } from 'zod';
+
 import { SignUpUseCase } from '../useCases/sign-up.usecase';
 
 const schema = z.object({
