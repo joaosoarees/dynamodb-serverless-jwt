@@ -10,4 +10,5 @@ export type Account = {
   email: string;
   password: string;
   role: ERole;
+  type: string;
 };

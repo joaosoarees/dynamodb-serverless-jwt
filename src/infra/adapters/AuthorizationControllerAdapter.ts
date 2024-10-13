@@ -17,10 +17,11 @@ export class AuthorizationControllerAdapter {
     ): Promise<IDefaultControllerAdapterResponse> => {
       if (!request?.metadata?.account) throw new AccessDeniedError();
 
-      if (!this.allowedRoles.includes(request.metadata.account.role))
+      const account = request.metadata.account;
+
+      if (!this.allowedRoles.includes(account.role))
         throw new AccessDeniedError();
 
-      const account = request.metadata.account;
       delete request.metadata;
 
       return controller({

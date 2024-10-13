@@ -10,6 +10,7 @@ interface ICreateAccountParams {
   name: string;
   password: string;
   role: ERole;
+  type: string;
 }
 
 export class AccountsRepository {
@@ -35,6 +36,7 @@ export class AccountsRepository {
     email,
     password,
     role,
+    type,
   }: ICreateAccountParams): Promise<void> {
     const accountId = randomUUID();
 
@@ -46,6 +48,7 @@ export class AccountsRepository {
         email,
         password,
         role,
+        type,
         PK: `ACCOUNT#<${accountId}>`,
         SK: `ACCOUNT#<${accountId}>`,
         GSI1PK: 'ACCOUNTS',

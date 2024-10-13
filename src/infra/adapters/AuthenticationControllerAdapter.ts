@@ -34,7 +34,8 @@ export class AuthenticationControllerAdapter {
             },
           },
         });
-      } catch {
+      } catch (error) {
+        console.error(error);
         throw new UnauthorizedError();
       }
     };

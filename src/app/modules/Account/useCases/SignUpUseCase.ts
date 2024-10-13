@@ -34,6 +34,7 @@ export class SignUpUseCase {
       email,
       password: hashedPassword,
       role: ERole.USER,
+      type: 'Account',
     });
   }
 }
