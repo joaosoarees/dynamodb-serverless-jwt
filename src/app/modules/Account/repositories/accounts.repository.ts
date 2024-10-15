@@ -3,18 +3,13 @@ import { randomUUID } from 'crypto';
 
 import { dynamoClient } from '@/clients/dynamoClient';
 import { env } from '@/config/env';
-import { ERole } from '@/shared/enums/role.enum';
 import { Account } from '../@types/account.type';
 
-interface ICreateAccountParams {
-  email: string;
-  name: string;
-  password: string;
-  role: ERole;
-  type: string;
-}
+import { ICreateAccountDTO } from '../dtos/create-account.dto';
 
-export class AccountsRepository {
+import { IAccountsRepository } from '../protocols/accounts-repository.protocol';
+
+export class AccountsRepository implements IAccountsRepository {
   async findByEmail(email: string): Promise<Account> {
     const command = new QueryCommand({
       TableName: env.DYNAMO_ACCOUNTS_TABLE,
@@ -38,7 +33,7 @@ export class AccountsRepository {
     password,
     role,
     type,
-  }: ICreateAccountParams): Promise<void> {
+  }: ICreateAccountDTO): Promise<void> {
     const accountId = randomUUID();
 
     const command = new PutCommand({
