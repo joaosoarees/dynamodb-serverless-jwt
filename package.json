@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "serverless offline --reloadHandler --noSponsor",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:watch": "jest --watch",
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand"
   },
   "keywords": [],
   "author": "",
@@ -11,16 +13,22 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.145",
     "@types/bcryptjs": "^2.4.6",
+    "@types/jest": "^29.5.13",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.5.5",
     "@typescript-eslint/eslint-plugin": "^8.6.0",
     "@typescript-eslint/parser": "^8.6.0",
+    "dotenv": "^16.4.5",
     "eslint": "8",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "jest": "^29.7.0",
     "prettier": "^3.3.3",
+    "serverless": "^4.4.6",
     "serverless-dotenv-plugin": "^6.0.0",
     "serverless-offline": "14.3.2",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   },
   "dependencies": {

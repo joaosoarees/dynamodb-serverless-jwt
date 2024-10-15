@@ -5,7 +5,7 @@ import { ICreateAccountDTO } from '../../dtos/create-account.dto';
 import { IAccountsRepository } from '../../protocols/accounts-repository.protocol';
 
 export class InMemoryAccountsRepository implements IAccountsRepository {
-  private accounts: Account[] = [];
+  public accounts: Account[] = [];
 
   async findByEmail(email: string): Promise<Account> {
     return this.accounts.find((account) => account.email === email) as Account;
