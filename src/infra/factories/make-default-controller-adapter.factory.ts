@@ -1,5 +1,7 @@
-import { IDefaultControllerAdapterParams } from '@/shared/interfaces/default-controller-adapter-params.interface';
-import { IDefaultControllerAdapterResponse } from '@/shared/protocols/default-controller.protocol';
+import {
+  IDefaultControllerAdapterParams,
+  IDefaultControllerAdapterResponse,
+} from '@/shared/protocols/default-controller-adapter.protocol';
 import { DefaultControllerAdapter } from '../adapters/default-controller.adapter';
 
 export interface IMakeDefaultControllerAdapterParams {

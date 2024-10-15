@@ -1,10 +1,7 @@
 import { IAuthorizationControllerAdapterParams } from '@/shared/interfaces/authorization-controller-adapter-params.interface';
-import {
-  IDefaultControllerAdapterResponse,
-  IDefaultControllerProtocol,
-} from '@/shared/protocols/default-controller.protocol';
+import { IDefaultControllerAdapterResponse } from '@/shared/protocols/default-controller-adapter.protocol';
 
-export class PrivateLeadsController implements IDefaultControllerProtocol {
+export class PrivateLeadsController {
   async handle(
     params: IAuthorizationControllerAdapterParams,
   ): Promise<IDefaultControllerAdapterResponse> {

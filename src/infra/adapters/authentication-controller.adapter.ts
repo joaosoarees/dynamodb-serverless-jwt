@@ -4,8 +4,10 @@ import { env } from '@/config/env';
 import { ERole } from '@/shared/enums/role.enum';
 import { UnauthorizedError } from '@/shared/errors/unauthorized.error';
 import { IAuthenticationControllerAdapterParams } from '@/shared/interfaces/authentication-controller-adapter-params.interface';
-import { IDefaultControllerAdapterParams } from '@/shared/interfaces/default-controller-adapter-params.interface';
-import { IDefaultControllerAdapterResponse } from '@/shared/protocols/default-controller.protocol';
+import {
+  IDefaultControllerAdapterParams,
+  IDefaultControllerAdapterResponse,
+} from '@/shared/protocols/default-controller-adapter.protocol';
 
 export class AuthenticationControllerAdapter {
   adapt(

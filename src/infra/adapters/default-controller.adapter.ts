@@ -8,8 +8,12 @@ import { AccessDeniedError } from '@/shared/errors/access-denied.error';
 import { AccountAlreadyExistsError } from '@/shared/errors/account-already-exists.error';
 import { InvalidCredentialsError } from '@/shared/errors/invalid-credential.error';
 import { UnauthorizedError } from '@/shared/errors/unauthorized.error';
-import { IDefaultControllerAdapterParams } from '@/shared/interfaces/default-controller-adapter-params.interface';
-import { IDefaultControllerAdapterResponse } from '@/shared/protocols/default-controller.protocol';
+
+import {
+  IDefaultControllerAdapterParams,
+  IDefaultControllerAdapterResponse,
+} from '@/shared/protocols/default-controller-adapter.protocol';
+
 import { httpResponse } from '@/shared/utils/http-response';
 
 export class DefaultControllerAdapter {

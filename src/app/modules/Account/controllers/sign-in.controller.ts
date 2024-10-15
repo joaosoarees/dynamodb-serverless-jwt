@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
-import { IDefaultControllerAdapterParams } from '@/shared/interfaces/default-controller-adapter-params.interface';
 import {
+  IDefaultControllerAdapterParams,
   IDefaultControllerAdapterResponse,
   IDefaultControllerProtocol,
-} from '@/shared/protocols/default-controller.protocol';
+} from '@/shared/protocols/default-controller-adapter.protocol';
 
 import { SignInUseCase } from '../useCases/sign-in.usecase';
 
