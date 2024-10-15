@@ -17,7 +17,7 @@ describe('SignInUseCase', () => {
     signUpUseCaseStub = new SignUpUseCase(SALT, accountsRepositoryStub);
   });
 
-  it('should be able to login if value params is provided', async () => {
+  it('should be able to login if valid params is provided', async () => {
     const account = {
       email: 'valid@email.com',
       name: 'valid-name',
@@ -40,7 +40,7 @@ describe('SignInUseCase', () => {
     await expect(promise).resolves.toHaveProperty('accessToken');
   });
 
-  it('should throw if invalid email is provided', async () => {
+  it('should throw if an invalid email is provided', async () => {
     const account = {
       email: 'valid@email.com',
       name: 'valid-name',
@@ -63,7 +63,7 @@ describe('SignInUseCase', () => {
     await expect(promise).rejects.toBeInstanceOf(InvalidCredentialsError);
   });
 
-  it('should throw if invalid password is provided', async () => {
+  it('should throw if an invalid password is provided', async () => {
     const account = {
       email: 'valid@email.com',
       name: 'valid-name',

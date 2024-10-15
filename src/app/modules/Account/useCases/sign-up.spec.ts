@@ -12,7 +12,7 @@ describe('SignUpUseCase', () => {
     signUpUseCaseStub = new SignUpUseCase(SALT, accountsRepositoryStub);
   });
 
-  it('should be able to create an account if value params is provided', async () => {
+  it('should be able to create an account if valid params is provided', async () => {
     const account = {
       email: 'valid@email.com',
       name: 'valid-name',
