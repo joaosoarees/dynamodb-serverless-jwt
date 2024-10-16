@@ -18,7 +18,7 @@ export class AuthenticationControllerAdapter {
     const handler = async (
       request: IDefaultControllerAdapterParams,
     ): Promise<IDefaultControllerAdapterResponse> => {
-      const { authorization } = request.headers;
+      const { authorization } = request.headers!;
 
       if (!authorization) throw new UnauthorizedError();
 
