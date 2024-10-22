@@ -10,12 +10,13 @@ useDotenv: true
 provider:
   name: aws
   runtime: nodejs20.x
-  region: us-east-1
+  region: sa-east-1
   architecture: arm64
   memorySize: 128
   timeout: 25
   environment:
     DYNAMO_ACCOUNTS_TABLE: !Ref AccountsTable
+    UPLOAD_BUCKET: !Ref UploadBucket
   iam:
     role:
       statements:
@@ -31,6 +32,12 @@ provider:
           Resource:
             - !GetAtt AccountsTable.Arn
             - !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${AccountsTable}/index/GSI1
+        # S3
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+            - s3:GetObject
+          Resource: !Join ['/', [!GetAtt UploadBucket.Arn, '*']]
 
 package:
   individually: true
@@ -49,6 +56,7 @@ custom:
     localEnvironment: true
 
 functions:
+  # Account
   AccountSignIn:
     handler: src/app/modules/Account/handler.signInHandler
     events:
@@ -62,6 +70,15 @@ functions:
           path: /account/sign-up
           method: POST
 
+  # Storage
+  GetPresignedUrl:
+    handler: src/app/modules/Storage/handler.getPresignedUrlHandler
+    events:
+      - httpApi:
+          path: /services/get-presigned-url
+          method: GET
+
+  # Private Routes
   ListLeads:
     handler: src/app/modules/Leads/handler.listLeadsHandler
     events:
@@ -78,3 +95,5 @@ functions:
 resources:
   # DynamoDB
   - ${file(./resources/dynamodb/AccountsTable.yml)}
+  # S3 Bucket
+  - ${file(./resources/s3/UploadBucket.yml)}

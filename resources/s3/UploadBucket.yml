@@ -1,0 +1,5 @@
+Resources:
+  UploadBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-presigned-urls-upload-bucket-jwt
