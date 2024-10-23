@@ -1,5 +1,11 @@
 export const env = {
-  DYNAMO_ACCOUNTS_TABLE: process.env.DYNAMO_ACCOUNTS_TABLE!,
-  JWT_SECRET: process.env.JWT_SECRET!,
+  // DynamoDB
+  DYNAMO_APPLICATION_TABLE: process.env.DYNAMO_APPLICATION_TABLE!,
+  DYNAMO_STORAGE_TABLE: process.env.DYNAMO_STORAGE_TABLE!,
+
+  // S3
   UPLOAD_BUCKET: process.env.UPLOAD_BUCKET!,
+
+  // APP
+  JWT_SECRET: process.env.JWT_SECRET!,
 };

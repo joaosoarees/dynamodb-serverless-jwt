@@ -15,7 +15,8 @@ provider:
   memorySize: 128
   timeout: 25
   environment:
-    DYNAMO_ACCOUNTS_TABLE: !Ref AccountsTable
+    DYNAMO_APPLICATION_TABLE: !Ref ApplicationTable
+    DYNAMO_STORAGE_TABLE: !Ref StorageTable
     UPLOAD_BUCKET: !Ref UploadBucket
   iam:
     role:
@@ -30,8 +31,9 @@ provider:
             - dynamodb:Scan
             - dynamodb:Query
           Resource:
-            - !GetAtt AccountsTable.Arn
-            - !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${AccountsTable}/index/GSI1
+            - !GetAtt ApplicationTable.Arn
+            - !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${ApplicationTable}/index/GSI1
+            - !GetAtt StorageTable.Arn
         # S3
         - Effect: Allow
           Action:
@@ -94,6 +96,7 @@ functions:
 
 resources:
   # DynamoDB
-  - ${file(./resources/dynamodb/AccountsTable.yml)}
+  - ${file(./resources/dynamodb/ApplicationTable.yml)}
+  - ${file(./resources/dynamodb/StorageTable.yml)}
   # S3 Bucket
   - ${file(./resources/s3/UploadBucket.yml)}

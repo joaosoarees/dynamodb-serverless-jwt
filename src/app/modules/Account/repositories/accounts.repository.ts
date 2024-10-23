@@ -12,7 +12,7 @@ import { IAccountsRepository } from '../protocols/accounts-repository.protocol';
 export class AccountsRepository implements IAccountsRepository {
   async findByEmail(email: string): Promise<Account> {
     const command = new QueryCommand({
-      TableName: env.DYNAMO_ACCOUNTS_TABLE,
+      TableName: env.DYNAMO_APPLICATION_TABLE,
       IndexName: 'GSI1',
       KeyConditionExpression: 'GSI1PK = :partitionKey AND GSI1SK = :sortKey',
       ExpressionAttributeValues: {
@@ -37,7 +37,7 @@ export class AccountsRepository implements IAccountsRepository {
     const accountId = randomUUID();
 
     const command = new PutCommand({
-      TableName: env.DYNAMO_ACCOUNTS_TABLE,
+      TableName: env.DYNAMO_APPLICATION_TABLE,
       Item: {
         id: accountId,
         name,

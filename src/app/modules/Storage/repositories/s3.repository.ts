@@ -2,11 +2,11 @@ import { PutObjectCommand, type S3Client } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 import { s3Client } from '@/clients/s3Client';
-
 import { env } from '@/config/env';
-import { IStorageRepository } from '../protocols/storage-repository.protocol';
 
-export class StorageRepository implements IStorageRepository {
+import { IS3Repository } from '../protocols/s3-repository.protocol';
+
+export class S3Repository implements IS3Repository {
   private client: S3Client;
 
   constructor() {
@@ -20,7 +20,7 @@ export class StorageRepository implements IStorageRepository {
     });
 
     const signedUrl = await getSignedUrl(this.client, command, {
-      expiresIn: 60,
+      expiresIn: 20,
     });
 
     return signedUrl;
