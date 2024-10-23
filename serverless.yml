@@ -75,8 +75,8 @@ functions:
     handler: src/app/modules/Storage/handler.getPresignedUrlHandler
     events:
       - httpApi:
-          path: /services/get-presigned-url
-          method: GET
+          path: /storage/get-presigned-url
+          method: POST
 
   # Private Routes
   ListLeads:
