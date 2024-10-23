@@ -4,7 +4,7 @@ import {
   IDefaultControllerAdapterParams,
   IDefaultControllerAdapterResponse,
   IDefaultControllerProtocol,
-} from '@/shared/protocols/default-controller-adapter.protocol';
+} from '@/infra/protocols/default-controller-adapter.protocol';
 
 import { SignUpUseCase } from '../useCases/sign-up.usecase';
 

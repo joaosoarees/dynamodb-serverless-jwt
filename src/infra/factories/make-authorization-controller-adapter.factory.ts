@@ -1,6 +1,6 @@
+import { IAuthorizationControllerAdapterParams } from '@/infra/protocols/authorization-controller-adapter.protocol';
+import { IDefaultControllerAdapterResponse } from '@/infra/protocols/default-controller-adapter.protocol';
 import { ERole } from '@/shared/enums/role.enum';
-import { IAuthorizationControllerAdapterParams } from '@/shared/interfaces/authorization-controller-adapter-params.interface';
-import { IDefaultControllerAdapterResponse } from '@/shared/protocols/default-controller-adapter.protocol';
 import { AuthorizationControllerAdapter } from '../adapters/authorization-controller.adapter';
 import { makeAuthenticationControllerAdapter } from './make-authentication-controller-adapter.factory';
 

@@ -1,12 +1,12 @@
 /* eslint-disable indent */
 import { z } from 'zod';
 
-import {
-  IAuthenticationControllerAdapterParams,
-  IAuthenticationControllerProtocol,
-} from '@/shared/protocols/authentication-controller-adapter.protocol';
-import { IDefaultControllerAdapterResponse } from '@/shared/protocols/default-controller-adapter.protocol';
+import { IDefaultControllerAdapterResponse } from '@/infra/protocols/default-controller-adapter.protocol';
 
+import {
+  IAuthorizationControllerAdapterParams,
+  IAuthorizationControllerProtocol,
+} from '@/infra/protocols/authorization-controller-adapter.protocol';
 import { GetPresignedUrlUseCase } from '../useCases/get-presigned-url.usecase';
 
 const fileExtensionRegex =
@@ -21,14 +21,13 @@ const schema = z.object({
 });
 
 export class GetPresignedUrlController
-  implements IAuthenticationControllerProtocol
+  implements IAuthorizationControllerProtocol
 {
   constructor(
     private readonly getPresignedUrlUseCase: GetPresignedUrlUseCase,
   ) {}
-
   handle = async (
-    params: IAuthenticationControllerAdapterParams,
+    params: IAuthorizationControllerAdapterParams,
   ): Promise<IDefaultControllerAdapterResponse> => {
     const { folder, fileName } = await schema.parseAsync(params.body);
 

@@ -12,7 +12,7 @@ import { UnauthorizedError } from '@/shared/errors/unauthorized.error';
 import {
   IDefaultControllerAdapterParams,
   IDefaultControllerAdapterResponse,
-} from '@/shared/protocols/default-controller-adapter.protocol';
+} from '@/infra/protocols/default-controller-adapter.protocol';
 
 import { httpResponse } from '@/shared/utils/http-response';
 

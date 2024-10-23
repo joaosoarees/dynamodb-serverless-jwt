@@ -1,8 +1,8 @@
-import { ERole } from '../enums/role.enum';
+import { ERole } from '../../shared/enums/role.enum';
 import {
   IDefaultControllerAdapterParams,
   IDefaultControllerAdapterResponse,
-} from '../protocols/default-controller-adapter.protocol';
+} from './default-controller-adapter.protocol';
 
 export interface IAuthenticationControllerAdapterParams
   extends IDefaultControllerAdapterParams {
