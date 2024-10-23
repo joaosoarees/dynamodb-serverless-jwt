@@ -21,7 +21,7 @@ describe('DefaultControllerAdapter', () => {
     handler = makeSut();
   });
 
-  it('should return statusCode 200 and success property if controller resolves', async () => {
+  it('should return status code 200 with success property if the controller resolves successfully', async () => {
     mockController.mockResolvedValue({
       statusCode: 200,
       data: { success: true },
@@ -37,7 +37,7 @@ describe('DefaultControllerAdapter', () => {
     expect(result).toEqual(httpResponse(200, { success: true }));
   });
 
-  it('should return statusCode 409 when AccountAlreadyExistsError throws', async () => {
+  it('should return status code 409 when AccountAlreadyExistsError is thrown', async () => {
     mockController.mockRejectedValue(
       new AccountAlreadyExistsError('Account already exists'),
     );
@@ -52,39 +52,31 @@ describe('DefaultControllerAdapter', () => {
     );
   });
 
-  it('should return statusCode 401 when InvalidCredentialsError throws', async () => {
-    mockController.mockRejectedValue(
-      new InvalidCredentialsError('Invalid credentials'),
-    );
+  it('should return status code 401 when InvalidCredentialsError is thrown', async () => {
+    mockController.mockRejectedValue(new InvalidCredentialsError());
 
     const result = await handler({} as any);
 
-    expect(result).toEqual(
-      httpResponse(401, new InvalidCredentialsError('Invalid credentials')),
-    );
+    expect(result).toEqual(httpResponse(401, new InvalidCredentialsError()));
   });
 
-  it('should return statusCode 401 when UnauthorizedError throws', async () => {
-    mockController.mockRejectedValue(new UnauthorizedError('Unauthorized'));
+  it('should return status code 401 when UnauthorizedError is thrown', async () => {
+    mockController.mockRejectedValue(new UnauthorizedError());
 
     const result = await handler({} as any);
 
-    expect(result).toEqual(
-      httpResponse(401, new UnauthorizedError('Unauthorized')),
-    );
+    expect(result).toEqual(httpResponse(401, new UnauthorizedError()));
   });
 
-  it('should return statusCode 403 when AccessDeniedError throws', async () => {
-    mockController.mockRejectedValue(new AccessDeniedError('Access denied'));
+  it('should return status code 403 when AccessDeniedError is thrown', async () => {
+    mockController.mockRejectedValue(new AccessDeniedError());
 
     const result = await handler({} as any);
 
-    expect(result).toEqual(
-      httpResponse(403, new AccessDeniedError('Access denied')),
-    );
+    expect(result).toEqual(httpResponse(403, new AccessDeniedError()));
   });
 
-  it('should return statusCode 400 when ZodError throws', async () => {
+  it('should return status code 400 when ZodError is thrown', async () => {
     const zodError = new ZodError([]);
     mockController.mockRejectedValue(zodError);
 
@@ -98,7 +90,7 @@ describe('DefaultControllerAdapter', () => {
     );
   });
 
-  it('should return statusCode 500 when unknow error throws', async () => {
+  it('should return status code 500 when an unknown error is thrown', async () => {
     mockController.mockRejectedValue(new Error('Unexpected error'));
 
     const result = await handler({} as any);
