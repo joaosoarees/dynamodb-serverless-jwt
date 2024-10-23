@@ -80,20 +80,6 @@ functions:
           path: /storage/get-presigned-url
           method: POST
 
-  # Private Routes
-  ListLeads:
-    handler: src/app/modules/Leads/handler.listLeadsHandler
-    events:
-      - httpApi:
-          path: /leads
-          method: GET
-  PrivateLeads:
-    handler: src/app/modules/Leads/handler.privateLeadsHandler
-    events:
-      - httpApi:
-          path: /leads
-          method: POST
-
 resources:
   # DynamoDB
   - ${file(./resources/dynamodb/ApplicationTable.yml)}
