@@ -3,3 +3,12 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: s3-presigned-urls-upload-bucket-jwt
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders:
+              - '*'
+            AllowedMethods:
+              - PUT
+            AllowedOrigins:
+              - 'http://localhost:5173'
+

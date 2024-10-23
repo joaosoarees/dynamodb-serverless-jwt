@@ -9,9 +9,15 @@ import { IDefaultControllerAdapterResponse } from '@/shared/protocols/default-co
 
 import { GetPresignedUrlUseCase } from '../useCases/get-presigned-url.usecase';
 
+const fileExtensionRegex =
+  /\.(png|jpe?g|webp|gif|bmp|tiff|svg|mp4|mov|avi|mkv|pdf|docx?|xlsx?|pptx?)$/i;
+
 const schema = z.object({
   folder: z.string().min(1),
-  fileName: z.string().min(1),
+  fileName: z
+    .string()
+    .regex(fileExtensionRegex, { message: 'Extensão do arquivo inválida.' })
+    .min(1),
 });
 
 export class GetPresignedUrlController
