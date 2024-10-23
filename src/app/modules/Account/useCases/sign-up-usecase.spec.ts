@@ -1,8 +1,9 @@
 import { AccountAlreadyExistsError } from '@/shared/errors/account-already-exists.error';
+import { IAccountsRepository } from '../protocols/accounts-repository.protocol';
 import { InMemoryAccountsRepository } from '../repositories/in-memory/accounts.repository';
 import { SignUpUseCase } from './sign-up.usecase';
 
-let accountsRepositoryStub: InMemoryAccountsRepository;
+let accountsRepositoryStub: IAccountsRepository;
 let signUpUseCaseStub: SignUpUseCase;
 const SALT = 10;
 

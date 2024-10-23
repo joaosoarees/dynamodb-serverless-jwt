@@ -1,10 +1,11 @@
 import { ZodError } from 'zod';
+import { IAccountsRepository } from '../protocols/accounts-repository.protocol';
 import { InMemoryAccountsRepository } from '../repositories/in-memory/accounts.repository';
 import { SignInUseCase } from '../useCases/sign-in.usecase';
 import { SignUpUseCase } from '../useCases/sign-up.usecase';
 import { SignInController } from './sign-in.controller';
 
-let accountsRepositoryStub: InMemoryAccountsRepository;
+let accountsRepositoryStub: IAccountsRepository;
 let signUpUseCaseStub: SignUpUseCase;
 let signInUseCaseStub: SignInUseCase;
 let signInControllerStub: SignInController;

@@ -1,9 +1,10 @@
 import { ZodError } from 'zod';
+import { IAccountsRepository } from '../protocols/accounts-repository.protocol';
 import { InMemoryAccountsRepository } from '../repositories/in-memory/accounts.repository';
 import { SignUpUseCase } from '../useCases/sign-up.usecase';
 import { SignUpController } from './sign-up.controller';
 
-let accountsRepositoryStub: InMemoryAccountsRepository;
+let accountsRepositoryStub: IAccountsRepository;
 let signUpUseCaseStub: SignUpUseCase;
 let signUpControllerStub: SignUpController;
 const SALT = 10;

@@ -1,11 +1,12 @@
 import { ERole } from '@/shared/enums/role.enum';
 import { InvalidCredentialsError } from '@/shared/errors/invalid-credential.error';
 
+import { IAccountsRepository } from '../protocols/accounts-repository.protocol';
 import { InMemoryAccountsRepository } from '../repositories/in-memory/accounts.repository';
 import { SignInUseCase } from './sign-in.usecase';
 import { SignUpUseCase } from './sign-up.usecase';
 
-let accountsRepositoryStub: InMemoryAccountsRepository;
+let accountsRepositoryStub: IAccountsRepository;
 let signInUseCaseStub: SignInUseCase;
 let signUpUseCaseStub: SignUpUseCase;
 const SALT = 10;
