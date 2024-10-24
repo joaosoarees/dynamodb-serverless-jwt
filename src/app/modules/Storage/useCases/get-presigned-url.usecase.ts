@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 
 import { IS3Repository } from '../protocols/s3-repository.protocol';
+import { IStorageRepository } from '../protocols/storage-repository.protocol';
 import { extractFileInfo } from '../utils/extractFileInfo';
 
 interface IGetPresignedUrlUseCaseParams {
@@ -9,7 +10,10 @@ interface IGetPresignedUrlUseCaseParams {
 }
 
 export class GetPresignedUrlUseCase {
-  constructor(private readonly s3Repository: IS3Repository) {}
+  constructor(
+    private readonly s3Repository: IS3Repository,
+    private readonly storageRepository: IStorageRepository,
+  ) {}
 
   async execute({
     folder,
@@ -18,6 +22,7 @@ export class GetPresignedUrlUseCase {
     const { extension, fileName: originalFileName } = extractFileInfo(fileName);
     const fileKey = `${folder}/${randomUUID()}-${originalFileName}.${extension}`;
 
+    await this.storageRepository.create(fileKey, originalFileName);
     return this.s3Repository.getPresignedUrl(fileKey);
   }
 }

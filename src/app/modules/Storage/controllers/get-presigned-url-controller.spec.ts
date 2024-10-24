@@ -1,17 +1,24 @@
 import { ZodError } from 'zod';
 import { IS3Repository } from '../protocols/s3-repository.protocol';
+import { IStorageRepository } from '../protocols/storage-repository.protocol';
 import { InMemoryS3Repository } from '../repositories/in-memory/s3.repository';
+import { InMemoryStorageRepository } from '../repositories/in-memory/storage.repository';
 import { GetPresignedUrlUseCase } from '../useCases/get-presigned-url.usecase';
 import { GetPresignedUrlController } from './get-presigned-url.controller';
 
 let s3Repository: IS3Repository;
+let storageRepository: IStorageRepository;
 let getPresignedUrlUseCaseStub: GetPresignedUrlUseCase;
 let getPresignedUrlControllerStub: GetPresignedUrlController;
 
 describe('GetPresignedUrlController', () => {
   beforeEach(() => {
     s3Repository = new InMemoryS3Repository();
-    getPresignedUrlUseCaseStub = new GetPresignedUrlUseCase(s3Repository);
+    storageRepository = new InMemoryStorageRepository();
+    getPresignedUrlUseCaseStub = new GetPresignedUrlUseCase(
+      s3Repository,
+      storageRepository,
+    );
     getPresignedUrlControllerStub = new GetPresignedUrlController(
       getPresignedUrlUseCaseStub,
     );
