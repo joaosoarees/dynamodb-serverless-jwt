@@ -7,4 +7,5 @@ export type Storage = {
   PK: string;
   originalFileName: string;
   status: EStorageStatus;
+  expiresAt: string;
 };
