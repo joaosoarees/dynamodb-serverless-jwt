@@ -79,6 +79,14 @@ functions:
       - httpApi:
           path: /storage/get-presigned-url
           method: POST
+  fileUploadTrigger:
+    handler: src/app/modules/Storage/handler.fileUploadTriggerHandler
+    events:
+      - s3:
+          bucket: !Ref UploadBucket
+          event: s3:ObjectCreated:*
+          existing: true
+          forceDeploy: true
 
 resources:
   # DynamoDB

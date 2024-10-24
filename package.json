@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "serverless offline --reloadHandler --noSponsor",
     "typecheck": "tsc --noEmit",
-    "test:watch": "jest --watch  --verbose",
+    "test:watch": "jest --watch --verbose",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand"
   },
   "keywords": [],
