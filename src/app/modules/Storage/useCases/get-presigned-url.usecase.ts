@@ -19,10 +19,11 @@ export class GetPresignedUrlUseCase {
     folder,
     fileName,
   }: IGetPresignedUrlUseCaseParams): Promise<string> {
-    const { extension, fileName: originalFileName } = extractFileInfo(fileName);
-    const fileKey = `${folder}/${randomUUID()}-${originalFileName}.${extension}`;
+    const { extension, fileName: extractedFileName } =
+      extractFileInfo(fileName);
+    const fileKey = `${folder}/${randomUUID()}-${extractedFileName}.${extension}`;
 
-    await this.storageRepository.create(fileKey, originalFileName);
+    await this.storageRepository.create(fileKey, fileName);
     return this.s3Repository.getPresignedUrl(fileKey);
   }
 }
