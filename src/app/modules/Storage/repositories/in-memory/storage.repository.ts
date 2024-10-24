@@ -9,6 +9,7 @@ export class InMemoryStorageRepository implements IStorageRepository {
       PK: fileKey,
       originalFileName,
       status: EStorageStatus.PENDING,
+      expiresAt: (Date.now() + 60000).toString(),
     });
   }
 

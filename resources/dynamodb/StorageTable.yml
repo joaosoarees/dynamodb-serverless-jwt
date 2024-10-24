@@ -12,3 +12,6 @@ Resources:
       KeySchema:
         - AttributeName: PK
           KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: expiresAt
+        Enabled: true

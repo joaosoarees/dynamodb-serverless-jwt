@@ -19,6 +19,7 @@ export class DynamoStorageRepository implements IStorageRepository {
         PK: fileKey,
         originalFileName,
         status: EStorageStatus.PENDING,
+        expiresAt: (Date.now() + 60000).toString(),
       },
     });
 
@@ -32,9 +33,10 @@ export class DynamoStorageRepository implements IStorageRepository {
         Key: {
           PK: fileKey,
         },
-        UpdateExpression: 'SET #status = :status',
+        UpdateExpression: 'SET #status = :status REMOVE #expiresAt',
         ExpressionAttributeNames: {
           '#status': 'status',
+          '#expiresAt': 'expiresAt',
         },
         ExpressionAttributeValues: {
           ':status': EStorageStatus.UPLOADED,
