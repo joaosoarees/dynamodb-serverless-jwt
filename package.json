@@ -5,6 +5,7 @@
     "dev": "serverless offline --reloadHandler --noSponsor",
     "typecheck": "tsc --noEmit",
     "test:watch": "jest --watch --verbose",
+    "test:coverage": "jest --coverage --silent --noStackTrace --runInBand",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "prepare": "husky install"
   },

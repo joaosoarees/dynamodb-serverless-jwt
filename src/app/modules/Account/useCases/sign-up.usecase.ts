@@ -3,7 +3,7 @@ import { hash } from 'bcryptjs';
 import { ERole } from '@/shared/enums/role.enum';
 import { AccountAlreadyExistsError } from '@/shared/errors/account-already-exists.error';
 
-import { AccountsRepository } from '../repositories/accounts.repository';
+import { IAccountsRepository } from '../protocols/accounts-repository.protocol';
 
 interface ISignUpUseCaseParams {
   name: string;
@@ -14,7 +14,7 @@ interface ISignUpUseCaseParams {
 export class SignUpUseCase {
   constructor(
     private readonly salt: number,
-    private readonly accountsRepository: AccountsRepository,
+    private readonly accountsRepository: IAccountsRepository,
   ) {}
 
   async execute({

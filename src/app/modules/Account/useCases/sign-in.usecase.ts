@@ -4,7 +4,7 @@ import { sign } from 'jsonwebtoken';
 import { env } from '@/config/env';
 import { InvalidCredentialsError } from '@/shared/errors/invalid-credential.error';
 
-import { AccountsRepository } from '../repositories/accounts.repository';
+import { IAccountsRepository } from '../protocols/accounts-repository.protocol';
 
 interface ISignInUseCaseParams {
   email: string;
@@ -16,7 +16,7 @@ interface ISignInUseCaseOutput {
 }
 
 export class SignInUseCase {
-  constructor(private readonly accountsRepository: AccountsRepository) {}
+  constructor(private readonly accountsRepository: IAccountsRepository) {}
 
   async execute({
     email,
