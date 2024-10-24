@@ -1,11 +1,9 @@
-import { IS3Repository } from '../protocols/s3-repository.protocol';
-import { IStorageRepository } from '../protocols/storage-repository.protocol';
 import { InMemoryS3Repository } from '../repositories/in-memory/s3.repository';
 import { InMemoryStorageRepository } from '../repositories/in-memory/storage.repository';
 import { GetPresignedUrlUseCase } from '../useCases/get-presigned-url.usecase';
 
-let s3Repository: IS3Repository;
-let storageRepository: IStorageRepository;
+let s3Repository: InMemoryS3Repository;
+let storageRepository: InMemoryStorageRepository;
 let getPresignedUrlUseCaseStub: GetPresignedUrlUseCase;
 
 describe('GetPresignedUrlUseCase', () => {

@@ -1,13 +1,12 @@
 import type { S3Event } from 'aws-lambda';
 import { EStorageStatus } from '../@types/storage.type';
-import { IS3Repository } from '../protocols/s3-repository.protocol';
 import { IS3Trigger } from '../protocols/s3-trigger.protocol';
 import { InMemoryS3Repository } from '../repositories/in-memory/s3.repository';
 import { InMemoryStorageRepository } from '../repositories/in-memory/storage.repository';
 import { GetPresignedUrlUseCase } from '../useCases/get-presigned-url.usecase';
 import { S3Trigger } from './s3.trigger';
 
-let s3Repository: IS3Repository;
+let s3Repository: InMemoryS3Repository;
 let storageRepository: InMemoryStorageRepository;
 let getPresignedUrlUseCaseStub: GetPresignedUrlUseCase;
 let s3TriggerStub: IS3Trigger;
